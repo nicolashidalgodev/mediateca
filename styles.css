@@ -50,7 +50,10 @@ body {
 a { color: var(--mim-black); text-decoration: none !important; }
 
 /* Enlaces del footer oscuro: blancos sobre mim-black (hover naranja). */
-.bg-color-purple a { color: var(--mim-white); }
+footer a,
+footer a:visited { color: var(--mim-white); }
+footer a:hover,
+footer a:focus-visible { color: var(--mim-orange); }
 
 /* Botones píldora, como los rounded-[42px] de mim.cl. */
 .btn { border-radius: 50rem !important; }
@@ -109,8 +112,6 @@ a { color: var(--mim-black); text-decoration: none !important; }
   border-color: var(--mim-orange);
   color: var(--mim-white);
 }
-
-footer a:hover { color: var(--mim-orange); }
 
 /* --- Cabecera --- */
 .brand-divider { width: 1px; height: 28px; background: rgba(34, 34, 34, .18); }
