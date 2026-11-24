@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mediateca MIM — Propuesta OPAC</title>
+  <meta name="description" content="Propuesta básica de interfaz para la Mediateca MIM sobre Koha OPAC, a partir del análisis de pantallas y hallazgos.">
+
+  <!-- Bootstrap 5.3.3, misma versión que usa portal.mim.cl/build/assets/main-*.css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons para los iconos de la interfaz -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Overrides MIM: paleta Mirador, botones, títulos y footer del portal + grilla tipo Mariátegui -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#contenido" aria-label="Mediateca MIM, inicio">
+          <img src="https://portal.mim.cl/mim/logo-mim.png" alt="MIM" width="110" height="36">
+          <span class="brand-divider" aria-hidden="true"></span>
+          <span class="brand-sub">Mediateca</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+            <li class="nav-item mx-lg-3 dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colecciones</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#colecciones">Archivo MIM</a></li>
+                <li><a class="dropdown-item" href="#colecciones">Fanzinoteca</a></li>
+                <li><a class="dropdown-item" href="#colecciones">Biblioteca mediateca</a></li>
+                <li><a class="dropdown-item" href="#colecciones">Hemeroteca</a></li>
+              </ul>
+            </li>
+            <li class="nav-item mx-lg-3 dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explorar</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#buscador">Búsqueda avanzada</a></li>
+                <li><a class="dropdown-item" href="#buscador">Navegar por jerarquía</a></li>
+                <li><a class="dropdown-item" href="#buscador">Búsqueda por autoría</a></li>
+                <li><a class="dropdown-item" href="#novedades">Más popular</a></li>
+              </ul>
+            </li>
+            <li class="nav-item mx-lg-3"><a class="nav-link" href="#cuenta">Tus listas</a></li>
+            <li class="nav-item ms-lg-3 mt-3 mt-lg-0 d-flex align-items-center gap-2">
+              <!-- Bug del análisis: cambiar idioma redirigía al login. Aquí no navega. -->
+              <div class="btn-group btn-group-sm lang-switch" role="group" aria-label="Idioma">
+                <button type="button" class="btn btn-secondary is-active" aria-pressed="true">ES</button>
+                <button type="button" class="btn btn-secondary" aria-pressed="false">EN</button>
+              </div>
+              <a class="nav-link btn btn-outline-mim d-inline-flex align-items-center gap-2" href="#cuenta">
+                <i class="bi bi-person" aria-hidden="true"></i>
+                Iniciar sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="buscador paddingTopPage" id="buscador" aria-labelledby="buscador-title">
+      <div class="container mb-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="row">
+              <div class="col-12 mt-lg-5 px-4 px-lg-0 mb-lg-3 text-center">
+                <h1 class="mainTitle" id="buscador-title">¿Qué estás buscando?</h1>
+                <hr class="hrMim mx-auto mb-2 mb-lg-3">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10 mt-3">
+            <form class="row g-2 align-items-center justify-content-center" action="#resultados" method="get">
+              <div class="col-md-4">
+                <label class="visually-hidden" for="campo">Campo de búsqueda</label>
+                <select class="form-select" id="campo" name="campo">
+                  <option>Catálogo de biblioteca</option>
+                  <option>Título</option>
+                  <option>Autor</option>
+                  <option>Tema</option>
+                  <option>ISBN</option>
+                  <option>ISSN</option>
+                  <option>Series</option>
+                  <option>Signatura tipográfica</option>
+                </select>
+              </div>
+              <div class="col-md">
+                <!-- Hallazgo crítico: un <script> aquí bloqueó mim.cl vía WAF. Validar también en servidor. -->
+                <label class="visually-hidden" for="q">Término de búsqueda</label>
+                <input class="form-control" id="q" name="q" type="search" required maxlength="120"
+                       pattern="[^&lt;&gt;]{1,120}"
+                       title="No se permiten etiquetas HTML ni caracteres &lt; o &gt;."
+                       placeholder="Título, autor, tema, ISBN…">
+              </div>
+              <div class="col-md-auto">
+                <button class="btn btn-outline-mim w-100" type="submit">Buscar</button>
+              </div>
+            </form>
+            <hr>
+            <nav class="d-flex flex-wrap justify-content-center gap-3" aria-label="Búsquedas especiales">
+              <a class="small fw-bold" href="#">Búsqueda avanzada</a>
+              <a class="small fw-bold" href="#">Navegar por jerarquía</a>
+              <a class="small fw-bold" href="#">Búsqueda por autoría</a>
+              <a class="small fw-bold" href="#novedades">Más popular</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section class="hero bg-color-purple color-beige py-5" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="row g-4 align-items-end">
+          <div class="col-lg-8">
+            <div class="hero-banner p-4 p-lg-5 rounded">
+              <p class="hero-kicker mb-2">Museo Interactivo Mirador</p>
+              <h2 id="hero-title" class="mb-3">La memoria también se lee,<br>se mira y se escucha.</h2>
+              <p class="mb-0">Explora el catálogo de la Mediateca MIM: publicaciones, fanzines, materiales de exposición y archivo sonoro.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="d-grid gap-2">
+              <a class="hero-card p-3 rounded" href="#colecciones">
+                <span class="hero-card-label d-block">01 / Catálogo</span>
+                <strong>Explora el archivo</strong>
+              </a>
+              <a class="hero-card p-3 rounded" href="#colecciones">
+                <span class="hero-card-label d-block">02 / Fanzinoteca</span>
+                <strong>Colecciones destacadas</strong>
+              </a>
+              <a class="hero-card p-3 rounded" href="#novedades">
+                <span class="hero-card-label d-block">03 / Exposiciones</span>
+                <strong>Novedades y adquisiciones</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+ 
+    <section class="colecciones py-5" id="colecciones" aria-labelledby="colecciones-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h2 class="mainTitle" id="colecciones-title">Colecciones destacadas</h2>
+            <hr class="hrMim mx-auto">
+          </div>
+        </div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div class="col">
+            <article class="card h-100 border-0 bg-transparent">
+              <div class="cover cover--fanzin" role="img" aria-label="Portada ilustrativa de Fanzinoteca"></div>
+              <div class="card-body px-0">
+                <h3 class="h6 card-title mb-1">Fanzinoteca</h3>
+                <p class="small text-muted card-text mb-0">Fanzines y publicaciones independientes.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <article class="card h-100 border-0 bg-transparent">
+              <div class="cover cover--novedades" role="img" aria-label="Portada ilustrativa de Novedades Noviembre"></div>
+              <div class="card-body px-0">
+                <h3 class="h6 card-title mb-1">Novedades Noviembre</h3>
+                <p class="small text-muted card-text mb-0">Lo último incorporado al catálogo.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <article class="card h-100 border-0 bg-transparent">
+              <div class="cover cover--conaf" role="img" aria-label="Portada ilustrativa de Colección CONAF"></div>
+              <div class="card-body px-0">
+                <h3 class="h6 card-title mb-1">Colección CONAF</h3>
+                <p class="small text-muted card-text mb-0">Documentos de patrimonio y memoria.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <article class="card h-100 border-0 bg-transparent">
+              <div class="cover cover--observatorios" role="img" aria-label="Portada ilustrativa de Observatorios Históricos"></div>
+              <div class="card-body px-0">
+                <h3 class="h6 card-title mb-1">Observatorios Históricos</h3>
+                <p class="small text-muted card-text mb-0">Exposición · material documental.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <article class="card h-100 border-0 bg-transparent">
+              <div class="cover cover--paisaje" role="img" aria-label="Portada ilustrativa de Tercer Paisaje"></div>
+              <div class="card-body px-0">
+                <h3 class="h6 card-title mb-1">Tercer Paisaje</h3>
+                <p class="small text-muted card-text mb-0">Exposición · archivo visual.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <a class="card h-100 border-0 bg-transparent" href="#">
+              <div class="cover cover--mas d-flex align-items-center justify-content-center" aria-hidden="true">Ver todo…</div>
+              <div class="card-body px-0">
+                <h3 class="h6 card-title mb-1">Ver todo…</h3>
+                <p class="small text-muted card-text mb-0">Todas las colecciones públicas.</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="novedades bg-color-beige py-5" id="novedades" aria-labelledby="novedades-title">
+      <div class="container">
+        <div class="row align-items-center mb-4 g-3">
+          <div class="col">
+            <p class="eyebrow mb-1">Actualizado cada semana</p>
+            <h2 class="mainTitle mb-0" id="novedades-title">Adquirido por último</h2>
+          </div>
+          <div class="col-auto">
+            <a class="btn btn-outline-mim" href="#">Ver listado completo</a>
+          </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+          <div class="col"><div class="card h-100 novedades-item"><div class="card-body"><span class="small text-muted d-block">01</span><h3 class="h6 mb-1">Memoria y territorio</h3><span class="small text-muted">2026 · Libro</span></div></div></div>
+          <div class="col"><div class="card h-100 novedades-item"><div class="card-body"><span class="small text-muted d-block">02</span><h3 class="h6 mb-1">Amauta, revista de vanguardia</h3><span class="small text-muted">2026 · Hemeroteca</span></div></div></div>
+          <div class="col"><div class="card h-100 novedades-item"><div class="card-body"><span class="small text-muted d-block">03</span><h3 class="h6 mb-1">Cuadernos de la Granja</h3><span class="small text-muted">2026 · Fanzine</span></div></div></div>
+          <div class="col"><div class="card h-100 novedades-item"><div class="card-body"><span class="small text-muted d-block">04</span><h3 class="h6 mb-1">Archivo sonoro MIM</h3><span class="small text-muted">2026 · Audio</span></div></div></div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="cuenta py-5" id="cuenta" aria-labelledby="cuenta-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h2 class="mainTitle" id="cuenta-title">Tu cuenta MIM</h2>
+            <hr class="hrMim mx-auto">
+          </div>
+        </div>
+        <div class="row justify-content-center g-5">
+          <div class="col-lg-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <p class="eyebrow mb-1">Acceso único</p>
+                <h3 class="mainPretitle mb-3">Ingresá a la mediateca</h3>
+                <form action="#" method="post">
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold" for="email">Correo electrónico</label>
+                    <input class="form-control" id="email" name="email" type="email" autocomplete="username" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold" for="clave">Contraseña</label>
+                    <input class="form-control" id="clave" name="clave" type="password" autocomplete="current-password" required>
+                  </div>
+                  <button class="btn btn-outline-mim" type="submit">Ingresar</button>
+                </form>
+                <p class="small text-muted mt-3 mb-0">El mismo acceso para reservas, listas y fichas.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 border-left ps-lg-5">
+            <h3 class="mainPretitle">Tus listas</h3>
+            <p>Guarda registros, arma tus propias colecciones y retoma dónde lo dejaste.</p>
+            <hr class="my-4">
+            <h3 class="mainPretitle">¿Todavía no tienes cuenta?</h3>
+            <p>Creala en un minuto para reservar y gestionar tus listas.</p>
+            <a class="btn btn-outline-mim" href="https://portal.mim.cl/centro-de-cuentas/registro">Crear cuenta</a> 
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 3 del análisis: vista de ficha con acciones aclaradas. -->
+    <section class="ficha pb-5" id="resultados" aria-labelledby="ficha-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h2 class="mainTitle" id="ficha-title">Vista de ficha</h2>
+            <hr class="hrMim mx-auto">
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <ul class="nav nav-tabs" role="tablist" aria-label="Vistas del registro">
+                  <li class="nav-item" role="presentation"><button class="nav-link active" type="button" role="tab" aria-selected="true">Vista normal</button></li>
+                  <li class="nav-item" role="presentation"><button class="nav-link" type="button" role="tab" aria-selected="false">Vista MARC</button></li>
+                  <li class="nav-item" role="presentation"><button class="nav-link" type="button" role="tab" aria-selected="false">Vista ISBD</button></li>
+                </ul>
+                <h3 class="mt-4 mb-1">Memoria y territorio</h3>
+                <p class="small text-muted">Libro · Museo Interactivo Mirador · 2026 · Signatura tipográfica MIM 980.3 M4</p>
+                <p>Descripción breve del recurso, clasificación y enlaces a recursos en línea. La vista normal se muestra por defecto; las vistas técnicas quedan en segundo plano.</p>
+                <ul class="nav nav-tabs mt-4" role="tablist" aria-label="Secciones de la ficha">
+                  <li class="nav-item" role="presentation"><button class="nav-link active" type="button" role="tab" aria-selected="true">Participaciones</button></li>
+                  <li class="nav-item" role="presentation"><button class="nav-link" type="button" role="tab" aria-selected="false">Comentarios</button></li>
+                  <li class="nav-item" role="presentation"><button class="nav-link" type="button" role="tab" aria-selected="false">Imágenes</button></li>
+                </ul>
+                <p class="small text-muted mt-3 mb-0">Disponibilidad: 1 ejemplar en sala · 1 en préstamo.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body p-4 d-grid gap-2">
+                <a class="btn btn-outline-mim" href="#cuenta">
+                  <i class="bi bi-bookmark-fill"></i> Retención
+                </a> 
+                <button class="btn btn-outline-mim" type="button">
+                  <i class="bi bi-printer-fill"></i> Imprimir Ficha Técnica
+                </button>
+                <button class="btn btn-outline-mim" type="button">
+                  <i class="bi bi-chat-right-quote-fill"></i>
+                  Citar 
+                </button>
+                <button class="btn btn-outline-mim" type="button">
+                  <i class="bi bi-save-fill"></i>
+                  Guardar en listas 
+                </button>
+                <label class="form-label small fw-bold mt-3 mb-0" for="formato">
+                  <i class="bi bi-save-fill"></i>
+                  Guardar registro 
+                </label>
+                <select class="form-select" id="formato">
+                  <option>MARCXML</option>
+                  <option>ISO 2709</option>
+                  <option>JSON</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estructura Mariátegui: banda de apoyo. -->
+    <section class="apoya bg-color-purple color-beige py-5" aria-labelledby="apoya-title">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-9">
+            <p class="eyebrow mb-1">Apoyá la mediateca</p>
+            <h2 id="apoya-title" class="mb-2">Tu apoyo nos ayuda a seguir abriendo archivos.</h2>
+            <p class="mb-0">Contribuís a conservar, digitalizar y poner a disposición las colecciones del MIM.</p>
+          </div>
+          <div class="col-lg-3 text-lg-end">
+            <a class="btn btn-light" href="#">Colaborar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Footer del portal MIM: bloque morado con beige y columnas de enlaces. -->
+    <section class="bg-color-purple color-beige py-4">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-sm-4 col-lg-3 text-center text-sm-start mb-4">
+            <img src="https://portal.mim.cl/mim/logo-mim-negativo.png" alt="MIM" class="img-fluid logo-vertical">
+          </div>
+          <div class="col-sm-8 col-lg-3 mb-4">
+            <a href="#"><strong>BOLETERÍA VIRTUAL</strong></a>
+            <ul class="mt-3 list-unstyled text-uppercase">
+              <li class="mb-1"><a href="https://portal.mim.cl/comprar-entradas">Compra de entradas</a></li>
+              <li class="mb-1"><a href="https://portal.mim.cl/comprar-mimbresia">Compra de mimbresías</a></li>
+              <li class="mb-1"><a href="https://portal.mim.cl/comprar-giftcard">Compra de giftcards</a></li>
+              <li class="mb-1"><a href="https://portal.mim.cl/reagendar-entradas">Reagendar entradas</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 col-lg-3 mb-4">
+            <a href="#cuenta"><strong>CENTRO DE CUENTAS</strong></a>
+            <ul class="mt-3 list-unstyled text-uppercase">
+              <li class="mb-1"><a href="#cuenta">Iniciar sesión</a></li>
+              <li class="mb-1"><a href="https://portal.mim.cl/centro-de-cuentas/registro/delegaciones">Registro para reservas</a></li>
+              <li class="mb-1"><a href="https://portal.mim.cl/centro-de-cuentas/registro">Registro público general</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 col-lg-3 mb-4">
+            <a href="https://mim.cl/planifica-tu-visita"><strong>PREPARÁ TU VISITA</strong></a>
+            <ul class="mt-3 list-unstyled text-uppercase">
+              <li class="mb-1"><a href="https://mim.cl/planifica-tu-visita">PLANIFICÁ TU VISITA</a></li>
+              <li class="mb-1"><a href="#buscador">POLÍTICA DE COOKIES</a></li>
+              <li class="mb-1"><a href="https://portal.mim.cl/terminos-y-condiciones">TÉRMINOS Y CONDICIONES DE SERVICIO</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cierre Mariátegui: boletín, sellos, redes y etiquetas. -->
+    <section class="bg-color-white">
+      <div class="container">
+        <div class="row pt-5 justify-content-center g-4">
+          <div class="col-md-7">
+            <h3 class="mainPretitle">Boletín de la mediateca</h3>
+            <form class="row g-2" action="#" method="post">
+              <div class="col-sm">
+                <label class="visually-hidden" for="boletin">Correo electrónico</label>
+                <input class="form-control" id="boletin" name="boletin" type="email" placeholder="Tu correo electrónico" required>
+              </div>
+              <div class="col-sm-auto"><button class="btn btn-outline-mim w-100" type="submit">Suscribirme</button></div>
+            </form>
+          </div>
+          <div class="col-md-5">
+            <h3 class="mainPretitle">Seguinos</h3>
+            <ul class="list-unstyled d-flex gap-3 mb-0">
+              <li><a class="small fw-bold" href="#">Instagram</a></li>
+              <li><a class="small fw-bold" href="#">Facebook</a></li>
+              <li><a class="small fw-bold" href="#">YouTube</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row pt-4 justify-content-center">
+          <div class="col-lg-9">
+            <div class="row row-cols-3 row-cols-lg-6 g-3 text-center">
+              <div class="col"><div class="sello logoFooter" aria-label="MINCAP">MINCAP</div></div>
+              <div class="col"><div class="sello logoFooter" aria-label="Transparencia">Transparencia</div></div>
+              <div class="col"><div class="sello logoFooter" aria-label="Ley de Lobby">Ley Lobby</div></div>
+              <div class="col"><div class="sello logoFooter" aria-label="Compliance">Compliance</div></div>
+              <div class="col"><div class="sello logoFooter" aria-label="Política de acceso">P. Acceso</div></div>
+              <div class="col"><div class="sello logoFooter" aria-label="Mesa de trabajo">Mesa</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="row py-4">
+          <div class="col-12 text-center color-gray">
+            <p class="small mb-2"><strong>Temas:</strong> memoria · fanzines · archivo sonoro · exposiciones · patrimonio · educación · biblioteca</p>
+            <p class="small mb-0"><strong>Avenida Punta Arenas 6711, La Granja, Santiago - Chile</strong> | +56 228 288 000 / +56 228 288 020</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

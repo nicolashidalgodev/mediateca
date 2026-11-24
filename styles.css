@@ -1,0 +1,206 @@
+/* Overrides sobre Bootstrap 5.3.3.
+   Estructura/componentes: portal.mim.cl (navbar, btn-outline-mim, mainTitle, footer).
+   COLORES: tokens de mim.cl (CSS compilado Tailwind, clases bg-mim-*):
+     mim-black #222222, mim-orange #FF7452, mim-yellow #FCEA03, mim-blue #25ABE5,
+     mim-green #3DB545, mim-lila #9D7CE7, mim-magenta #E962DF,
+     mim-porcelain #EFEFEF, mim-gray #8E8E93. */
+
+@font-face {
+  font-family: "MIM";
+  src: url("https://portal.mim.cl/build/assets/Mirador-Regular-CwohMWwv.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "MIM";
+  src: url("https://portal.mim.cl/build/assets/Mirador-Medium-D4HMztep.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "MIM";
+  src: url("https://portal.mim.cl/build/assets/Mirador-Semibold-C9FZTSz9.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "MIM";
+  src: url("https://portal.mim.cl/build/assets/Mirador-Bold-rnaN3qw5.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+:root {
+  --mim-black: #222222;
+  --mim-orange: #ff7452;
+  --mim-yellow: #fcea03;
+  --mim-blue: #25abe5;
+  --mim-green: #3db545;
+  --mim-lila: #9d7ce7;
+  --mim-magenta: #e962df;
+  --mim-porcelain: #efefef;
+  --mim-gray: #8e8e93;
+  --mim-white: #fff;
+}
+
+body {
+  font-family: "MIM", Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mim-black);
+  background-color: var(--mim-white);
+}
+
+a { color: var(--mim-black); text-decoration: none !important; }
+
+/* Botones píldora, como los rounded-[42px] de mim.cl. */
+.btn { border-radius: 50rem !important; }
+
+:focus-visible { outline: 2px solid var(--mim-blue); outline-offset: 3px; }
+
+.skip-link {
+  position: absolute;
+  top: -60px; left: 1rem;
+  z-index: 1080;
+  padding: .5rem 1rem;
+  background: var(--mim-black);
+  color: var(--mim-white);
+}
+.skip-link:focus { top: 1rem; }
+
+/* --- Clases del portal MIM, recoloreadas con la paleta de mim.cl --- */
+.mainTitle { font-size: 32px; font-weight: 700; }
+.mainPretitle { font-size: 22px; font-weight: 700; }
+.hrMim {
+  width: 56px;
+  height: 3px;
+  border: 0;
+  border-top: 3px solid var(--mim-yellow);
+  opacity: 1;
+}
+.paddingTopPage { padding-top: 30px; padding-bottom: 30px; }
+.border-left { border-left: 1px solid rgba(34, 34, 34, .18); }
+.logoFooter { max-height: 80px; }
+
+.bg-color-purple { background-color: var(--mim-black) !important; }
+.bg-color-beige { background-color: var(--mim-porcelain) !important; }
+.bg-color-white { background-color: var(--mim-white) !important; }
+.color-beige { color: var(--mim-white); }
+.color-gray { color: var(--mim-gray); }
+
+.btn-outline-mim {
+  border-radius: 50rem !important;
+  border: 1px solid var(--mim-black);
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  color: var(--mim-black);
+}
+.btn-outline-mim:hover,
+.btn-outline-mim:focus-visible {
+  background-color: var(--mim-orange);
+  border-color: var(--mim-orange);
+  color: var(--mim-white) !important;
+}
+
+/* CTA amarillo de mim.cl: texto negro, hover naranja. */
+.btn-light {
+  background-color: var(--mim-yellow);
+  border-color: var(--mim-yellow);
+  color: var(--mim-black);
+}
+.btn-light:hover {
+  background-color: var(--mim-orange);
+  border-color: var(--mim-orange);
+  color: var(--mim-white);
+}
+
+footer a:hover { color: var(--mim-orange); }
+
+/* --- Cabecera --- */
+.brand-divider { width: 1px; height: 28px; background: rgba(34, 34, 34, .18); }
+.brand-sub { font-size: 15px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.navbar .nav-link { font-weight: 500; }
+.lang-switch .btn {
+  border-color: rgba(34, 34, 34, .18);
+  background: transparent;
+  color: var(--mim-black);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 0 !important;
+}
+.lang-switch .btn:first-child { border-radius: 50rem 0 0 50rem !important; }
+.lang-switch .btn:last-child { border-radius: 0 50rem 50rem 0 !important; }
+.lang-switch .btn.is-active { background: var(--mim-black); border-color: var(--mim-black); color: var(--mim-white); }
+
+/* --- Buscador y hero --- */
+.buscador { background: linear-gradient(180deg, var(--mim-porcelain), var(--mim-white)); }
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mim-gray);
+}
+
+.hero-banner {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(252, 234, 3, .85), transparent 45%),
+    linear-gradient(120deg, var(--mim-black) 0%, var(--mim-black) 35%, var(--mim-orange) 100%);
+}
+.hero-kicker { text-transform: uppercase; letter-spacing: .16em; font-size: 11px; color: var(--mim-yellow); }
+.hero-banner h2 { font-size: clamp(24px, 3vw, 38px); line-height: 1.2; }
+.hero-banner p { max-width: 46ch; color: #e6e6e6; }
+.hero-card {
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .3);
+  transition: background-color .15s ease;
+}
+.hero-card:hover { background: rgba(255, 255, 255, .2); color: var(--mim-white); }
+.hero-card-label { font-size: 11px; letter-spacing: .1em; color: var(--mim-yellow); text-transform: uppercase; }
+
+/* --- Colecciones: portadas con la paleta de mim.cl --- */
+.cover {
+  aspect-ratio: 270 / 327;
+  border-radius: 3px;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  color: var(--mim-white);
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(34, 34, 34, .14);
+  background-color: var(--mim-black);
+}
+.cover--fanzin { background: linear-gradient(160deg, var(--mim-orange), var(--mim-black)); }
+.cover--novedades { background: linear-gradient(160deg, var(--mim-blue), var(--mim-black)); }
+.cover--conaf { background: linear-gradient(160deg, var(--mim-green), var(--mim-black)); }
+.cover--observatorios { background: linear-gradient(160deg, var(--mim-lila), var(--mim-black)); }
+.cover--paisaje { background: linear-gradient(160deg, var(--mim-magenta), var(--mim-black)); }
+.cover--mas { background: var(--mim-yellow); color: var(--mim-black); font-size: 20px; text-align: center; }
+
+/* --- Novedades, ficha y apoyo --- */
+.novedades-item { border-top: 3px solid var(--mim-orange); }
+.nav-tabs .nav-link.active { color: var(--mim-black); border-color: var(--mim-orange) var(--mim-orange) var(--mim-white); }
+.nav-tabs .nav-link { color: var(--mim-gray); }
+.apoya p { color: #e6e6e6; }
+.apoya .eyebrow { color: var(--mim-yellow); }
+
+/* --- Footer --- */
+.logo-vertical { max-height: 90px; }
+.sello {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem;
+  border: 1px solid rgba(34, 34, 34, .12);
+  border-radius: 3px;
+  color: var(--mim-gray);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
