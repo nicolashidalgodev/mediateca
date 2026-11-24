@@ -49,6 +49,9 @@ body {
 
 a { color: var(--mim-black); text-decoration: none !important; }
 
+/* Enlaces del footer oscuro: blancos sobre mim-black (hover naranja). */
+.bg-color-purple a { color: var(--mim-white); }
+
 /* Botones píldora, como los rounded-[42px] de mim.cl. */
 .btn { border-radius: 50rem !important; }
 
@@ -76,13 +79,10 @@ a { color: var(--mim-black); text-decoration: none !important; }
 }
 .paddingTopPage { padding-top: 30px; padding-bottom: 30px; }
 .border-left { border-left: 1px solid rgba(34, 34, 34, .18); }
-.logoFooter { max-height: 80px; }
 
 .bg-color-purple { background-color: var(--mim-black) !important; }
 .bg-color-beige { background-color: var(--mim-porcelain) !important; }
-.bg-color-white { background-color: var(--mim-white) !important; }
 .color-beige { color: var(--mim-white); }
-.color-gray { color: var(--mim-gray); }
 
 .btn-outline-mim {
   border-radius: 50rem !important;
@@ -177,28 +177,13 @@ footer a:hover { color: var(--mim-orange); }
 .cover--paisaje { background: linear-gradient(160deg, var(--mim-magenta), var(--mim-black)); }
 .cover--mas { background: var(--mim-yellow); color: var(--mim-black); font-size: 20px; text-align: center; }
 
-/* --- Novedades, ficha y apoyo --- */
+/* --- Novedades y ficha --- */
 .novedades-item { border-top: 3px solid var(--mim-orange); }
 .nav-tabs .nav-link.active { color: var(--mim-black); border-color: var(--mim-orange) var(--mim-orange) var(--mim-white); }
 .nav-tabs .nav-link { color: var(--mim-gray); }
-.apoya p { color: #e6e6e6; }
-.apoya .eyebrow { color: var(--mim-yellow); }
 
 /* --- Footer --- */
 .logo-vertical { max-height: 90px; }
-.sello {
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: .5rem;
-  border: 1px solid rgba(34, 34, 34, .12);
-  border-radius: 3px;
-  color: var(--mim-gray);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
